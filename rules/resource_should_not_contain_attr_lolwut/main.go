@@ -3,18 +3,15 @@ package main
 
 import (
 	tfvet "github.com/clintjedwards/tfvet-sdk"
-	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 )
 
 type Check struct{}
 
-func (c *Check) Check(file *hcl.File) []tfvet.RuleError {
+func (c *Check) Check(file *hclsyntax.Body) []tfvet.RuleError {
 	lintErrors := []tfvet.RuleError{}
 
-	hclContent := file.Body.(*hclsyntax.Body)
-
-	for _, attribute := range hclContent.Attributes {
+	for _, attribute := range file.Attributes {
 		if attribute.Name != "lolwut" {
 			continue
 		}

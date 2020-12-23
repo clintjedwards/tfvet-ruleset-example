@@ -5,18 +5,15 @@ import (
 	"strings"
 
 	tfvet "github.com/clintjedwards/tfvet-sdk"
-	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 )
 
 type Check struct{}
 
-func (c *Check) Check(file *hcl.File) []tfvet.RuleError {
+func (c *Check) Check(file *hclsyntax.Body) []tfvet.RuleError {
 	lintErrors := []tfvet.RuleError{}
 
-	hclContent := file.Body.(*hclsyntax.Body)
-
-	for _, block := range hclContent.Blocks {
+	for _, block := range file.Blocks {
 		for _, label := range block.Labels {
 			if strings.ToLower(label) != "example" {
 				continue

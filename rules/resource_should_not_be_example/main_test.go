@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/hashicorp/hcl/v2/hclparse"
+	"github.com/hashicorp/hcl/v2/hclsyntax"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -37,8 +38,10 @@ bogus_attr = "example"
 		t.Error(err)
 	}
 
+	hclFileBody := hclFile.Body.(*hclsyntax.Body)
+
 	c := Check{}
-	errs := c.Check(hclFile)
+	errs := c.Check(hclFileBody)
 
 	assert.Len(t, errs, 1, "only one resource should cause an error")
 	assert.Equal(t, 2, int(errs[0].Location.Start.Line), "error location should be on line 2")

@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/hashicorp/hcl/v2/hclparse"
+	"github.com/hashicorp/hcl/v2/hclsyntax"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -35,8 +36,10 @@ shouldnt_matter = "lolwut"
 		t.Error(err)
 	}
 
+	hclFileBody := hclFile.Body.(*hclsyntax.Body)
+
 	c := Check{}
-	errs := c.Check(hclFile)
+	errs := c.Check(hclFileBody)
 
 	assert.Len(t, errs, 1, "only one attr should cause an error")
 	assert.Equal(t, 17, int(errs[0].Location.Start.Line), "error location should be on line 2")
