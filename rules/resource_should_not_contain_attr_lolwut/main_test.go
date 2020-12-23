@@ -3,6 +3,7 @@ package main
 import (
 	"testing"
 
+	tfvet "github.com/clintjedwards/tfvet-sdk"
 	"github.com/hashicorp/hcl/v2/hclparse"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 	"github.com/stretchr/testify/assert"
@@ -37,9 +38,10 @@ shouldnt_matter = "lolwut"
 	}
 
 	hclFileBody := hclFile.Body.(*hclsyntax.Body)
+	content := tfvet.Convert(hclFileBody)
 
 	c := Check{}
-	errs := c.Check(hclFileBody)
+	errs := c.Check(content)
 
 	assert.Len(t, errs, 1, "only one attr should cause an error")
 	assert.Equal(t, 17, int(errs[0].Location.Start.Line), "error location should be on line 2")

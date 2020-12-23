@@ -38,10 +38,12 @@ github.com/cheggaaa/pb v1.0.27/go.mod h1:pQciLPpbU0oxA0h+VJYYLxO+XeDQb5pZijXscXH
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/clintjedwards/tfvet v0.0.0-20201220023119-1accea3d8bb0 h1:mIkdiXnUbfSVpMSAAMs77rWHWnyMOgAAh+1esUPufsc=
 github.com/clintjedwards/tfvet v0.0.0-20201220023119-1accea3d8bb0/go.mod h1:caMs0jqMXUU2V5AtnKdk5bFBKscVnY64PxKB9HHiyVs=
-github.com/clintjedwards/tfvet-sdk v0.0.0-20201223032515-92803a1f8085 h1:mnwnmNXJ3HKaShACkg+HqBKTmGbwIcW0zbhVFQ4Fxxw=
-github.com/clintjedwards/tfvet-sdk v0.0.0-20201223032515-92803a1f8085/go.mod h1:OJvSVponydlVPHu4aY1gCv0ptA4s6Ht+IY/Mo1ThAVQ=
 github.com/clintjedwards/tfvet-sdk v0.0.0-20201223033251-3d68c58707eb h1:fHiaPulq2OcGPSDjawS9p2vFblxZZQEwcdFTT9NEuXU=
 github.com/clintjedwards/tfvet-sdk v0.0.0-20201223033251-3d68c58707eb/go.mod h1:OJvSVponydlVPHu4aY1gCv0ptA4s6Ht+IY/Mo1ThAVQ=
+github.com/clintjedwards/tfvet-sdk v0.0.0-20201223042727-7bc148191d67 h1:mWvaSMrPgULyfE3Arn4A4MKlOKlx5ue0Ewu8MZKgs3g=
+github.com/clintjedwards/tfvet-sdk v0.0.0-20201223042727-7bc148191d67/go.mod h1:OJvSVponydlVPHu4aY1gCv0ptA4s6Ht+IY/Mo1ThAVQ=
+github.com/clintjedwards/tfvet-sdk v0.0.0-20201223043818-988606e0c283 h1:iMUf9mU2EMurtUqXmuS5y0d4VtFeLcFrcpe6+Yf0Nig=
+github.com/clintjedwards/tfvet-sdk v0.0.0-20201223043818-988606e0c283/go.mod h1:OJvSVponydlVPHu4aY1gCv0ptA4s6Ht+IY/Mo1ThAVQ=
 github.com/cncf/udpa/go v0.0.0-20200629203442-efcf912fb354/go.mod h1:WmhPx2Nbnhtbo57+VJT5O0JRkEi1Wbu0z5j0R8u5Hbk=
 github.com/coreos/bbolt v1.3.2/go.mod h1:iRUV2dpdMOn7Bo10OQBFzIJO9kkE559Wcmn+qkEiiKk=
 github.com/coreos/etcd v3.3.13+incompatible/go.mod h1:uF7uidLiAD3TWHmW31ZFd/JWoc32PjwdhPthX9715RE=

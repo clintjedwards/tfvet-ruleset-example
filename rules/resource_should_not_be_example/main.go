@@ -5,21 +5,20 @@ import (
 	"strings"
 
 	tfvet "github.com/clintjedwards/tfvet-sdk"
-	"github.com/hashicorp/hcl/v2/hclsyntax"
 )
 
 type Check struct{}
 
-func (c *Check) Check(file *hclsyntax.Body) []tfvet.RuleError {
+func (c *Check) Check(content *tfvet.HCLContent) []tfvet.RuleError {
 	lintErrors := []tfvet.RuleError{}
 
-	for _, block := range file.Blocks {
+	for _, block := range content.Blocks {
 		for _, label := range block.Labels {
 			if strings.ToLower(label) != "example" {
 				continue
 			}
 
-			location := tfvet.Location{
+			location := tfvet.Range{
 				Start: tfvet.Position{
 					Line:   uint32(block.DefRange().Start.Line),
 					Column: uint32(block.DefRange().Start.Column),

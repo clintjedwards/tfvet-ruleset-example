@@ -3,20 +3,19 @@ package main
 
 import (
 	tfvet "github.com/clintjedwards/tfvet-sdk"
-	"github.com/hashicorp/hcl/v2/hclsyntax"
 )
 
 type Check struct{}
 
-func (c *Check) Check(file *hclsyntax.Body) []tfvet.RuleError {
+func (c *Check) Check(content *tfvet.HCLContent) []tfvet.RuleError {
 	lintErrors := []tfvet.RuleError{}
 
-	for _, attribute := range file.Attributes {
+	for _, attribute := range content.Attributes {
 		if attribute.Name != "lolwut" {
 			continue
 		}
 
-		location := tfvet.Location{
+		location := tfvet.Range{
 			Start: tfvet.Position{
 				Line:   uint32(attribute.NameRange.Start.Line),
 				Column: uint32(attribute.NameRange.Start.Column),
