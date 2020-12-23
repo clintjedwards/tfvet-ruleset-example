@@ -3,9 +3,6 @@ package main
 import (
 	"testing"
 
-	tfvet "github.com/clintjedwards/tfvet-sdk"
-	"github.com/hashicorp/hcl/v2/hclparse"
-	"github.com/hashicorp/hcl/v2/hclsyntax"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -33,19 +30,13 @@ resource "aws_compute_instance" "not_example" {
 
 bogus_attr = "example"
 `)
-	parser := hclparse.NewParser()
-	hclFile, err := parser.ParseHCL(hclFileRaw, "test")
-	if err != nil {
-		t.Error(err)
-	}
-
-	hclFileBody := hclFile.Body.(*hclsyntax.Body)
-	content := tfvet.Convert(hclFileBody)
 
 	c := Check{}
-	errs := c.Check(content)
+	errs := c.Check(hclFileRaw)
 
-	assert.Len(t, errs, 1, "only one resource should cause an error")
+	if !assert.Len(t, errs, 1, "only one resource should cause an error") {
+		t.FailNow()
+	}
 	assert.Equal(t, 2, int(errs[0].Location.Start.Line), "error location should be on line 2")
 	assert.Equal(t, 2, int(errs[0].Location.End.Line), "error location should be on line 2")
 }

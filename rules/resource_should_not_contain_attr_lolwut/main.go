@@ -2,15 +2,30 @@
 package main
 
 import (
+	"log"
+
 	tfvet "github.com/clintjedwards/tfvet-sdk"
+	"github.com/hashicorp/hcl/v2/hclparse"
+	"github.com/hashicorp/hcl/v2/hclsyntax"
 )
 
 type Check struct{}
 
-func (c *Check) Check(content *tfvet.HCLContent) []tfvet.RuleError {
+func (c *Check) Check(content []byte) []tfvet.RuleError {
+	//TODO(clintjedwards): Having to reparse the file for every plugin is very slow, figure
+	// out if there is a better way to transfer this information to plugins
+
+	parser := hclparse.NewParser()
+	file, diags := parser.ParseHCL(content, "tmp")
+	if diags.HasErrors() {
+		log.Fatal(diags)
+	}
+
+	hclContent := file.Body.(*hclsyntax.Body)
+
 	lintErrors := []tfvet.RuleError{}
 
-	for _, attribute := range content.Attributes {
+	for _, attribute := range hclContent.Attributes {
 		if attribute.Name != "lolwut" {
 			continue
 		}
