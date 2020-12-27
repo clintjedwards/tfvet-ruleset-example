@@ -2,8 +2,6 @@
 package main
 
 import (
-	"log"
-
 	tfvet "github.com/clintjedwards/tfvet-sdk"
 	"github.com/hashicorp/hcl/v2/hclparse"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
@@ -11,14 +9,17 @@ import (
 
 type Check struct{}
 
-func (c *Check) Check(content []byte) []tfvet.RuleError {
-	//TODO(clintjedwards): Having to reparse the file for every plugin is very slow, figure
-	// out if there is a better way to transfer this information to plugins
+const remediationText string = "Change lolwut to another attribute"
+const remediationCode string = "not_lolwut = true"
 
+func (c *Check) Check(content []byte) ([]tfvet.RuleError, error) {
+	//TODO(clintjedwards): Having to reparse the file for every plugin is very slow, figure
+	// out if there is a better way to transfer this information to the main binary and have
+	// plugins consume that instead.
 	parser := hclparse.NewParser()
 	file, diags := parser.ParseHCL(content, "tmp")
 	if diags.HasErrors() {
-		log.Fatal(diags)
+		return nil, diags
 	}
 
 	hclContent := file.Body.(*hclsyntax.Body)
@@ -42,11 +43,13 @@ func (c *Check) Check(content []byte) []tfvet.RuleError {
 		}
 
 		lintErrors = append(lintErrors, tfvet.RuleError{
-			Location: location,
+			RemediationText: remediationText,
+			RemediationCode: remediationCode,
+			Location:        location,
 		})
 	}
 
-	return lintErrors
+	return lintErrors, nil
 }
 
 func main() {

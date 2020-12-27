@@ -32,7 +32,10 @@ bogus_attr = "example"
 `)
 
 	c := Check{}
-	errs := c.Check(hclFileRaw)
+	errs, err := c.Check(hclFileRaw)
+	if err != nil {
+		t.Error(err)
+	}
 
 	if !assert.Len(t, errs, 1, "only one resource should cause an error") {
 		t.FailNow()

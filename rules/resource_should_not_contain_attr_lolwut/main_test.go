@@ -29,7 +29,10 @@ happy = "test1"
 shouldnt_matter = "lolwut"
 `)
 	c := Check{}
-	errs := c.Check(hclFileRaw)
+	errs, err := c.Check(hclFileRaw)
+	if err != nil {
+		t.Error(err)
+	}
 
 	assert.Len(t, errs, 1, "only one attr should cause an error")
 	assert.Equal(t, 17, int(errs[0].Location.Start.Line), "error location should be on line 2")

@@ -2,7 +2,6 @@
 package main
 
 import (
-	"log"
 	"strings"
 
 	tfvet "github.com/clintjedwards/tfvet-sdk"
@@ -12,14 +11,17 @@ import (
 
 type Check struct{}
 
-func (c *Check) Check(content []byte) []tfvet.RuleError {
-	//TODO(clintjedwards): Having to reparse the file for every plugin is very slow, figure
-	// out if there is a better way to transfer this information to plugins
+const remediationText string = "Use a different resource name than example"
+const remediationCode string = `resource "google_compute_instance" "anything" {`
 
+func (c *Check) Check(content []byte) ([]tfvet.RuleError, error) {
+	//TODO(clintjedwards): Having to reparse the file for every plugin is very slow, figure
+	// out if there is a better way to transfer this information to the main binary and have
+	// plugins consume that instead.
 	parser := hclparse.NewParser()
 	file, diags := parser.ParseHCL(content, "tmp")
 	if diags.HasErrors() {
-		log.Fatal(diags)
+		return nil, diags
 	}
 
 	hclContent := file.Body.(*hclsyntax.Body)
@@ -49,7 +51,7 @@ func (c *Check) Check(content []byte) []tfvet.RuleError {
 		}
 	}
 
-	return lintErrors
+	return lintErrors, nil
 }
 
 func main() {
@@ -57,7 +59,7 @@ func main() {
 
 	newRule := &tfvet.Rule{
 		Name:  "No resource with the name 'example'",
-		Short: "Example is a poor name for a resources and might lead to naming collisions.",
+		Short: "Example is a poor name for a resource and might lead to naming collisions.",
 		Long: `
 This is simply a test description of a resource that effectively alerts on nothingness. In turn
 this is essentially a really long description so we can test that our descriptions work properly
