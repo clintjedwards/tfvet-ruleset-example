@@ -39,8 +39,8 @@ github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDk
 github.com/clintjedwards/tfvet v0.0.0-20201227003530-3784fa32abe9/go.mod h1:UXuHcHvGSr6ckIxwIR5W29RJafi0turuzYrN03rzVkQ=
 github.com/clintjedwards/tfvet v0.1.1 h1:TA5XC5iXAjZuvF7snX82GvCRLIKTBZj6XIUS4wmQSK4=
 github.com/clintjedwards/tfvet v0.1.1/go.mod h1:B42xdv2VICqxTU7hDwWYsMLIyyBW7C5ebpNhkxcM174=
-github.com/clintjedwards/tfvet-sdk v0.0.1 h1:YkvX2vqQ0WkyVWk/4L9TY1N1PbrSeIYpO7jK1INsSmo=
-github.com/clintjedwards/tfvet-sdk v0.0.1/go.mod h1:rSDaucCtpWMJn79/VWqwCbtyUUHvr/GygXNekRYCrJE=
+github.com/clintjedwards/tfvet-sdk v0.0.0-20201227064314-ef5f7e760b60 h1:p89PPxgp8Ome5nW1e3aTTrPilgfaG3q+uLq9gYGrsx0=
+github.com/clintjedwards/tfvet-sdk v0.0.0-20201227064314-ef5f7e760b60/go.mod h1:rSDaucCtpWMJn79/VWqwCbtyUUHvr/GygXNekRYCrJE=
 github.com/cncf/udpa/go v0.0.0-20200629203442-efcf912fb354/go.mod h1:WmhPx2Nbnhtbo57+VJT5O0JRkEi1Wbu0z5j0R8u5Hbk=
 github.com/coreos/bbolt v1.3.2/go.mod h1:iRUV2dpdMOn7Bo10OQBFzIJO9kkE559Wcmn+qkEiiKk=
 github.com/coreos/etcd v3.3.13+incompatible/go.mod h1:uF7uidLiAD3TWHmW31ZFd/JWoc32PjwdhPthX9715RE=
