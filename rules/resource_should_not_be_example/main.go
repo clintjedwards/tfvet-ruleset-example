@@ -46,7 +46,9 @@ func (c *Check) Check(content []byte) ([]tfvet.RuleError, error) {
 			}
 
 			lintErrors = append(lintErrors, tfvet.RuleError{
-				Location: location,
+				RemediationText: remediationText,
+				RemediationCode: remediationCode,
+				Location:        location,
 			})
 		}
 	}
