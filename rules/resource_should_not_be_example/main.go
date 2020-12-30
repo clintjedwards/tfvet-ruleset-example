@@ -4,15 +4,12 @@ package main
 import (
 	"strings"
 
-	tfvet "github.com/clintjedwards/tfvet-sdk"
+	tfvet "github.com/clintjedwards/tfvet/sdk"
 	"github.com/hashicorp/hcl/v2/hclparse"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 )
 
 type Check struct{}
-
-const remediationText string = "Use a different resource name than example"
-const remediationCode string = `resource "google_compute_instance" "anything" {`
 
 func (c *Check) Check(content []byte) ([]tfvet.RuleError, error) {
 	//TODO(clintjedwards): Having to reparse the file for every plugin is very slow, figure
@@ -46,9 +43,15 @@ func (c *Check) Check(content []byte) ([]tfvet.RuleError, error) {
 			}
 
 			lintErrors = append(lintErrors, tfvet.RuleError{
-				RemediationText: remediationText,
-				RemediationCode: remediationCode,
-				Location:        location,
+				Suggestion:  "Use a different resource name than example",
+				Remediation: `resource "google_compute_instance" "anything" {`,
+				Location:    location,
+				Metadata: map[string]string{
+					"severity": "warning",
+					"example":  "Lorem ipsum dolor sit amet",
+					"example2": "consectetur adipiscing elit.",
+					"example3": "Integer posuere rutrum velit",
+				},
 			})
 		}
 	}
@@ -63,14 +66,13 @@ func main() {
 		Name:  "No resource with the name 'example'",
 		Short: "Example is a poor name for a resource and might lead to naming collisions.",
 		Long: `
-This is simply a test description of a resource that effectively alerts on nothingness. In turn
-this is essentially a really long description so we can test that our descriptions work properly
-and are displayed properly in the terminal.
+This is simply a test description of a resource that effectively alerts on nothingness.
+In turn this is essentially a really long description so we can test that our descriptions
+work properly and are displayed properly in the terminal.
 `,
-		Default:  true,
-		Severity: tfvet.Error,
-		Link:     "https://google.com",
-		Check:    &newCheck,
+		Enabled: true,
+		Link:    "https://google.com",
+		Check:   &newCheck,
 	}
 
 	tfvet.NewRule(newRule)

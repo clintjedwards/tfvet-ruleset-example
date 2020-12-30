@@ -2,15 +2,12 @@
 package main
 
 import (
-	tfvet "github.com/clintjedwards/tfvet-sdk"
+	tfvet "github.com/clintjedwards/tfvet/sdk"
 	"github.com/hashicorp/hcl/v2/hclparse"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 )
 
 type Check struct{}
-
-const remediationText string = "Change lolwut to another attribute"
-const remediationCode string = "not_lolwut = true"
 
 func (c *Check) Check(content []byte) ([]tfvet.RuleError, error) {
 	//TODO(clintjedwards): Having to reparse the file for every plugin is very slow, figure
@@ -43,9 +40,12 @@ func (c *Check) Check(content []byte) ([]tfvet.RuleError, error) {
 		}
 
 		lintErrors = append(lintErrors, tfvet.RuleError{
-			RemediationText: remediationText,
-			RemediationCode: remediationCode,
-			Location:        location,
+			Suggestion:  "Change lolwut to another attribute",
+			Remediation: "not_lolwut = true",
+			Location:    location,
+			Metadata: map[string]string{
+				"severity": "error",
+			},
 		})
 	}
 
@@ -63,10 +63,9 @@ This is simply a test description of a resource that effectively alerts on nothi
 this is essentially a really long description so we can test that our descriptions work properly
 and are displayed properly in the terminal.
 `,
-		Default:  false,
-		Severity: tfvet.Error,
-		Link:     "http://lolwut.com/",
-		Check:    &newCheck,
+		Enabled: true,
+		Link:    "http://lolwut.com/",
+		Check:   &newCheck,
 	}
 
 	tfvet.NewRule(newRule)
