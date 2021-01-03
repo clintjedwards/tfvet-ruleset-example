@@ -28,6 +28,7 @@ lolwut = "weow"
 happy = "test1"
 shouldnt_matter = "lolwut"
 `)
+
 	c := Check{}
 	errs, err := c.Check(hclFileRaw)
 	if err != nil {
