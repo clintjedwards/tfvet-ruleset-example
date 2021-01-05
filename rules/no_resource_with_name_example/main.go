@@ -64,7 +64,7 @@ func main() {
 	// The documentation for each of these fields can be found looking at the sdk documentation
 	// here: https://pkg.go.dev/github.com/clintjedwards/tfvet/sdk#Rule
 	newRule := &tfvet.Rule{
-		Name:  "No resource with the name example",
+		Name:  "No resource with name example",
 		Short: "Example is a poor name for a resource and might lead to naming collisions.",
 		Long: `
 This is simply a test description of a resource that effectively alerts on nothingness.
